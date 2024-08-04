@@ -1,12 +1,25 @@
 const container = document.querySelector(".container");
 const containerWidth = container.offsetWidth;
-const gridSizeButton = document.querySelector(".grid-size");
-const randomColorButton = document.querySelector(".random-color");
+const gridSizeRange = document.querySelector("#grid-size");
+const gridSizeSpan = document.querySelector(".grid-size");
+const blackButton = document.querySelector(".black");
+const blackCheck = document.querySelector(".black-check");
+const rainbowButton = document.querySelector(".rainbow");
+const rainbowCheck = document.querySelector(".rainbow-check");
 const opacityButton = document.querySelector(".opacity");
-let gridSize = 16;
+const opacityCheck = document.querySelector(".opacity-check");
+const color = document.querySelector(".color");
+const eraser = document.querySelector(".eraser");
+const eraserCheck = document.querySelector(".eraser-check");
+const reset = document.querySelector(".reset");
+
+let gridSize = gridSizeRange.value;
+let isBlackModeOn = true;
 let isColorRandom = false;
+let isEraser = false;
 let isOpacityFeatureOn = false;
 let opacity = 1;
+let chosenColor = null;
 
 function createGrid(n) {
   const divSize = calcDivSize(containerWidth, n) + "px";
@@ -29,10 +42,20 @@ container.addEventListener("mouseover", function (e) {
   const square = e.target;
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
+  if (isBlackModeOn) {
+    square.style.backgroundColor = "black";
+  }
+
   if (isColorRandom) {
     square.style.backgroundColor = "#" + randomColor;
-  } else {
-    square.style.backgroundColor = "black";
+  }
+
+  if (chosenColor) {
+    square.style.backgroundColor = chosenColor;
+  }
+
+  if (isEraser) {
+    square.style.backgroundColor = "white";
   }
 
   if (isOpacityFeatureOn) {
@@ -41,19 +64,78 @@ container.addEventListener("mouseover", function (e) {
   }
 });
 
-gridSizeButton.addEventListener("click", function () {
-  const size = prompt();
+gridSizeRange.addEventListener("input", function (e) {
+  const size = e.target.value;
+
+  gridSizeSpan.textContent = `${size}X${size}`;
   container.textContent = "";
-  size > 100 ? (gridSize = 100) : (gridSize = size);
-  createGrid(gridSize);
+  createGrid(size);
 });
 
-randomColorButton.addEventListener("click", function () {
+blackButton.addEventListener("click", function () {
+  isBlackModeOn = true;
+  isColorRandom = false;
+  isEraser = false;
+  blackCheck.textContent = "on";
+  rainbowCheck.textContent = "off";
+  eraserCheck.textContent = "off";
+  chosenColor = null;
+});
+
+rainbowButton.addEventListener("click", function () {
   isColorRandom = true;
+  isBlackModeOn = false;
+  isEraser = false;
+  rainbowCheck.textContent = "on";
+  blackCheck.textContent = "off";
+  eraserCheck.textContent = "off";
+  chosenColor = null;
 });
 
 opacityButton.addEventListener("click", function () {
-  isOpacityFeatureOn = true;
+  isOpacityFeatureOn
+    ? (isOpacityFeatureOn = false)
+    : (isOpacityFeatureOn = true);
+  isOpacityFeatureOn
+    ? (opacityCheck.textContent = "on")
+    : (opacityCheck.textContent = "off");
+});
+
+color.addEventListener("input", function (e) {
+  const value = e.target.value;
+  chosenColor = value;
+
+  isColorRandom = false;
+  isBlackModeOn = false;
+  isEraser = false;
+  rainbowCheck.textContent = "off";
+  blackCheck.textContent = "off";
+  eraserCheck.textContent = "off";
+});
+
+eraser.addEventListener("click", function () {
+  isEraser = true;
+  isColorRandom = false;
+  isBlackModeOn = false;
+  eraserCheck.textContent = "on";
+  rainbowCheck.textContent = "off";
+  blackCheck.textContent = "off";
+  chosenColor = null;
+});
+
+reset.addEventListener("click", function () {
+  container.textContent = "";
+  isEraser = false;
+  isColorRandom = false;
+  isBlackModeOn = true;
+  eraserCheck.textContent = "off";
+  rainbowCheck.textContent = "off";
+  blackCheck.textContent = "on";
+  chosenColor = null;
+  container.style.opacity = 1;
+  opacity = 1;
+  color.value = "black";
+  createGrid(gridSizeRange.value);
 });
 
 createGrid(gridSize);
