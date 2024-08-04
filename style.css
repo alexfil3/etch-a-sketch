@@ -4,10 +4,47 @@
 
 body {
     background-color: #333;
+    color: white;
+    font-family: "Honk", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "MORF" 15,
+      "SHLN" 50;
+}
+
+button {
+    background-color: inherit;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: 22px;
+    width: 200px;
+    height: 48px;
+    margin: 0;
+    padding: 0;
+    border: 2px solid white;
+    border-radius: 20px;
+    background-color: black;
+    cursor: pointer;
 }
 
 .title {
     text-align: center;
+    font-size: 60px;
+}
+
+.main {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.controllers-left,
+.controllers-right {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .container {
@@ -16,6 +53,5 @@ body {
     width: 500px;
     height: 500px;
     background-color: white;
-    margin: 0 auto;
-    opacity: 1;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

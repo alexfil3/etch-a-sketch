@@ -5,21 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Alex Filimonov">
     <meta name="description" content="Etch-a-Sketch simple project to check my knowledge on DOM manipulation">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Honk&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <title>Etch-a-Sketch</title>
 </head>
 <body>
-    <h1 class="title">Etch a Sketch</h1>
-    <button class="grid-size" type="button">Set the grid size</button>
-    <!-- change to input appearance -->
-    <!-- add a drawing method mousemove or mousepress -->
-    <button class="random-color" type="button">Randomize color</button>
-    <button class="opacity" type="button">Opacity</button>
-    <button type="button">Black</button>
-    <input type="color" name="" id="">
-    <button type="button">Reset</button>
-    <button type="button">Eraser</button>
-    <div class="container"></div>
+    <header>
+        <h1 class="title">Etch a Sketch</h1>
+    </header>
+    <main class="main">
+        <div class="controllers-left">
+            <button class="grid-size" type="button">Set the grid size</button>
+            <!-- change to input appearance -->
+            <button type="button">Black</button>
+            <button class="random-color" type="button">Rainbow off</button>
+            <button class="opacity" type="button">Opacity off</button>
+        </div>
+        <div class="container"></div>
+        <div class="controllers-right">
+            <input type="color" name="" id="">
+            <button type="button">Reset</button>
+            <button type="button">Eraser</button>
+            <!-- add a drawing method mousemove or mousepress -->
+        </div>
+    </main>
     <script src="./index.js"></script>
 </body>
 </html>
