@@ -12,6 +12,7 @@ const color = document.querySelector(".color");
 const eraser = document.querySelector(".eraser");
 const eraserCheck = document.querySelector(".eraser-check");
 const reset = document.querySelector(".reset");
+const drawMethod = document.querySelector(".draw-option-wrapper");
 
 let gridSize = gridSizeRange.value;
 let isBlackModeOn = true;
@@ -38,7 +39,21 @@ function calcDivSize(width, number) {
   return size;
 }
 
-container.addEventListener("mouseover", function (e) {
+drawMethod.addEventListener("click", function (e) {
+  const option = e.target.value;
+
+  if (option === "click") {
+    container.removeEventListener("mouseover", drawSquares);
+    container.addEventListener("click", drawSquares);
+  }
+
+  if (option === "move") {
+    container.removeEventListener("click", drawSquares);
+    container.addEventListener("mouseover", drawSquares);
+  }
+});
+
+function drawSquares(e) {
   const square = e.target;
   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
@@ -62,7 +77,9 @@ container.addEventListener("mouseover", function (e) {
     container.style.opacity = opacity - 0.1;
     opacity -= 0.1;
   }
-});
+}
+
+container.addEventListener("mouseover", drawSquares);
 
 gridSizeRange.addEventListener("input", function (e) {
   const size = e.target.value;
@@ -134,7 +151,7 @@ reset.addEventListener("click", function () {
   chosenColor = null;
   container.style.opacity = 1;
   opacity = 1;
-  color.value = "black";
+  color.value = "#000000";
   createGrid(gridSizeRange.value);
 });
 
